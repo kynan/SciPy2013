@@ -12,7 +12,7 @@ slides:
 	nbconvert.py reveal $(SLIDES).ipynb
 	mv $(SLIDES).reveal.html $(SLIDES_HTML)
 
-server:
+server: slides
 	python -m SimpleHTTPServer $(PORT)
 
 publish: slides

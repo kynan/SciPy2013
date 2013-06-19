@@ -1,15 +1,19 @@
 SLIDES = scipy2013
 SLIDES_HTML = index.html
 SLIDES_DEPS = index.html
+PORT = 8000
 
 REMOTE = origin
 
-server:
+notebook:
 	ipython notebook --pylab inline --no-browser
 
 slides:
 	nbconvert.py reveal $(SLIDES).ipynb
 	mv $(SLIDES).reveal.html $(SLIDES_HTML)
+
+server:
+	python -m SimpleHTTPServer $(PORT)
 
 publish: slides
 	git add $(SLIDES_DEPS)

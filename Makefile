@@ -22,3 +22,4 @@ publish: slides
 	git checkout -b gh-pages
 	-git commit -m "Create gh-pages"
 	git push -f $(REMOTE) gh-pages
+	git checkout master

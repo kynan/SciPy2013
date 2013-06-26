@@ -1,6 +1,8 @@
 SLIDES = scipy2013
 SLIDES_HTML = index.html
-SLIDES_DEPS = index.html
+PLOT_DEPS = parallel_12/speedup_linear_1.svg parallel_12/speedup_linear_2.svg \
+            parallel_12/speedup_linear_3.svg
+SLIDES_DEPS = $(SLIDES_HTML) $(PLOT_DEPS)
 PORT = 8000
 
 REMOTE = origin
@@ -8,9 +10,12 @@ REMOTE = origin
 notebook:
 	ipython notebook --pylab inline --no-browser
 
-slides:
+slides: plot
 	nbconvert.py reveal $(SLIDES).ipynb
 	mv $(SLIDES).reveal.html $(SLIDES_HTML)
+
+plot: $(PLOT_DEPS)
+	(cd parallel_12; python speedup_linear.plot.py)
 
 server: slides
 	python -m SimpleHTTPServer $(PORT)

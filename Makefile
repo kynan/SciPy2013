@@ -15,7 +15,9 @@ slides: plot
 	mv $(SLIDES).slides.html $(SLIDES_HTML)
 
 plot: $(PLOT_DEPS)
-	(cd parallel_12; python3 speedup_linear.plot.py)
+
+$(PLOT_DEPS): $@
+	(cd parallel_12; python speedup_linear.plot.py)
 
 server: slides
 	python3 -m http.server $(PORT)

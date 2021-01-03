@@ -8,17 +8,17 @@ PORT = 8000
 REMOTE = origin
 
 notebook:
-	ipython notebook --pylab inline --no-browser
+	jupyter notebook --pylab inline --no-browser
 
 slides: plot
-	nbconvert.py reveal $(SLIDES).ipynb
-	mv $(SLIDES).reveal.html $(SLIDES_HTML)
+	jupyter nbconvert --to slides $(SLIDES).ipynb
+	mv $(SLIDES).slides.html $(SLIDES_HTML)
 
 plot: $(PLOT_DEPS)
-	(cd parallel_12; python speedup_linear.plot.py)
+	(cd parallel_12; python3 speedup_linear.plot.py)
 
 server: slides
-	python -m SimpleHTTPServer $(PORT)
+	python3 -m http.server $(PORT)
 
 publish: slides
 	git add $(SLIDES_DEPS)
